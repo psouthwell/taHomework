@@ -24,30 +24,7 @@ public class DogApiController {
 	private DogApiService dogApiService;
 	
 
-    /**
-     * The reason Im using a WRTIER here is the breeds are basically the fields of Message (in the JSON).
-     * That makes that an ugly structure in Java because Im assuming other dog breads might be created by
-     * Science (They change), etc...  
-     * 
-     *  So to me.. It's easier to try to write it.. Rather then Model it in Java as a static field set.
-     * @param name
-     * @return   Json Object sith {   "status": "success/fail",
-     *                                "message":  {
-     *                             			"breed1", [],
-     *                                      "breed2", [ "subbreed_a", subreed_b" ],
-     *                                      etc.....  (one for every breed that exists.. Whos value is empty.. or a list
-     *                                                 of sub breeds).
-     *                                }
-     *                                
-     *                            }
-     *                            
-     *  @see https://dog.ceo/api/breeds/list/all
-     *  
-     *  
-     *  @note I would have put this in the service.. But I feel like the JSON is really contrived for the purpose 
-     *        of the format tailored for the dog.ceo api.
-     */
-    @RequestMapping("/breeds/list/all")
+   @RequestMapping("/breeds/list/all")
     public String getListAllBreeds() {
     	try {
 			String result = dogApiService.getListAllBreeds();
