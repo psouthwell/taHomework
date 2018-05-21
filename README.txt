@@ -1,3 +1,15 @@
+This is a demo app demonstrating use of
+
+JPA/Hibernate
+h2 in memeory db
+exec:java
+Spring BOOT
+Consuming Rest
+Providing Rest
+SpringBOOT Service unit testing
+
+
+
 Deployment steps.
 
 
