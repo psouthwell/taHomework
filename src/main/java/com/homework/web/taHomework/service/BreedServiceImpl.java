@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.homework.web.taHomework.domain.Breed;
+import com.homework.web.taHomework.domain.BreedViewCount;
+import com.homework.web.taHomework.domain.BreedViewCountRepository;
 import com.homework.web.taHomework.service.interfaces.BreedService;
 import com.homework.web.taHomework.service.interfaces.DogApiService;
 
@@ -25,8 +27,21 @@ public class BreedServiceImpl implements BreedService {
 	@Autowired
 	private DogApiService dogApiService;
 	
+	@Autowired
+	private BreedViewCountRepository breedViewCountRepository;
 	
-	@Override
+	
+	public void saveBreedViewCount(BreedViewCount breedViewCount) {
+		
+		this.breedViewCountRepository.save(breedViewCount);
+		
+	}
+	
+	public BreedViewCount findBreedViewCountByName(String name) {
+		return breedViewCountRepository.findByName(name);
+	}
+	
+	
 	public List<Breed> getAllBreeds() throws Exception {
 		List<Breed> breedList = new ArrayList<Breed>();
 		String jsonListAllBreeds;

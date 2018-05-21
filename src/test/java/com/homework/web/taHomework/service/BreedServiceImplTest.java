@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.homework.web.taHomework.Application;
 import com.homework.web.taHomework.domain.Breed;
+import com.homework.web.taHomework.domain.BreedViewCount;
 import com.homework.web.taHomework.service.interfaces.BreedService;
 
 @RunWith(SpringRunner.class)
@@ -25,6 +26,20 @@ public class BreedServiceImplTest {
 	@Autowired
 	BreedService breedService;
 	
+	
+	@Test
+	public void testSaveBreedViewCount() {
+		BreedViewCount breedViewCount = new BreedViewCount(null, "TEST_BREED", 1);
+		
+		this.breedService.saveBreedViewCount(breedViewCount);
+		
+		String expectedName = breedViewCount.getName();
+		breedViewCount = this.breedService.findBreedViewCountByName(breedViewCount.getName());
+		
+		assertTrue( breedViewCount.getId() != null );
+		assertTrue( breedViewCount.getId().longValue() > 0 );
+		assertEquals( expectedName, breedViewCount.getName() );
+	}
 	
 	@Test
 	public void testGetAllBreeds() throws Exception {
