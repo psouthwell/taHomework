@@ -42,6 +42,28 @@ public class BreedServiceImplTest {
 	}
 	
 	@Test
+	public void testTop10BreedViewCount() {
+		this.breedService.saveBreedViewCount(new BreedViewCount(null, "TEST_BREED_10", 10));
+		this.breedService.saveBreedViewCount(new BreedViewCount(null, "TEST_BREED_9", 9));
+		this.breedService.saveBreedViewCount(new BreedViewCount(null, "TEST_BREED_8", 8));
+		this.breedService.saveBreedViewCount(new BreedViewCount(null, "TEST_BREED_7", 7));
+		this.breedService.saveBreedViewCount(new BreedViewCount(null, "TEST_BREED_6", 6));
+		this.breedService.saveBreedViewCount(new BreedViewCount(null, "TEST_BREED_5", 5));
+		this.breedService.saveBreedViewCount(new BreedViewCount(null, "TEST_BREED_4", 4));
+		this.breedService.saveBreedViewCount(new BreedViewCount(null, "TEST_BREED_3", 3));
+		this.breedService.saveBreedViewCount(new BreedViewCount(null, "TEST_BREED_2", 2));
+		this.breedService.saveBreedViewCount(new BreedViewCount(null, "TEST_BREED_1", 1));
+		
+		
+		List<BreedViewCount> top10BreedViewCount = this.breedService.getTop10ViewedBreeds();
+		assertNotNull( top10BreedViewCount );
+		assertTrue( top10BreedViewCount.size() == 10 );
+		assertEquals( 10, top10BreedViewCount.get(0).getViewCount() );
+		assertEquals( 1, top10BreedViewCount.get(top10BreedViewCount.size() -1).getViewCount() );
+		
+	}
+	
+	@Test
 	public void testGetAllBreeds() throws Exception {
 		List<Breed> allBreeds = this.breedService.getAllBreeds();
 		assertNotNull( allBreeds );

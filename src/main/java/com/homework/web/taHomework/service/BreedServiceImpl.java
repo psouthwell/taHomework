@@ -31,6 +31,12 @@ public class BreedServiceImpl implements BreedService {
 	private BreedViewCountRepository breedViewCountRepository;
 	
 	
+	
+	
+	public List<BreedViewCount> getTop10ViewedBreeds() {
+		return this.breedViewCountRepository.findTop10ByOrderByViewCountDesc();
+	}
+	
 	public void saveBreedViewCount(BreedViewCount breedViewCount) {
 		
 		this.breedViewCountRepository.save(breedViewCount);

@@ -14,5 +14,8 @@ public interface BreedService {
 	
 	BreedViewCount findBreedViewCountByName(String name);
 	void saveBreedViewCount(BreedViewCount breedViewCount);
+	
+	List<BreedViewCount> getTop10ViewedBreeds();
+	
 
 }
