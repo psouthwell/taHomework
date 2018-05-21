@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.homework.web.taHomework.domain.Breed;
+import com.homework.web.taHomework.domain.BreedViewCount;
 import com.homework.web.taHomework.service.DogApiServiceImpl;
 import com.homework.web.taHomework.service.interfaces.BreedService;
 import com.homework.web.taHomework.service.interfaces.DogApiService;
@@ -28,6 +29,18 @@ public class BreedServiceController {
 	private BreedService breedService;
 	
 
+	
+	/**
+	 * Get all breeds
+	 * @return
+	 * @throws Exception
+	 */
+    @RequestMapping("/breedservice/list/top10")
+    public List<BreedViewCount> getListTop10Breeds() throws Exception {
+    	return this.breedService.getTop10ViewedBreeds();
+	}
+    
+    
 	/**
 	 * Get all breeds
 	 * @return
@@ -51,8 +64,13 @@ public class BreedServiceController {
      */
     @RequestMapping("/breedservice/{breedname}/images/range")
     public List<String> getAllBreedImagesByNameAndRange(@PathVariable("breedname") String breedname, @RequestParam(value="skip") int skip, @RequestParam(value="size") int size) throws Exception {
+    	
+    	this.updateBreedViewCount(breedname);
+    	
     	return this.breedService.getBreedImagesInRange(breedname, skip, size);
 	}
+
+
   
     /**
      * Get all images a Breed Has
@@ -62,7 +80,21 @@ public class BreedServiceController {
      */
     @RequestMapping("/breedservice/{breedname}/images")
     public List<String> getAllBreedImagesByNameAndRange(@PathVariable("breedname") String breedname) throws Exception {
+    	
+    	this.updateBreedViewCount(breedname);
+    	
     	return this.breedService.getAllBreedImages(breedname);
 	}
 	
+    
+
+	private void updateBreedViewCount(String breedname) {
+		BreedViewCount breedViewCount = this.breedService.findBreedViewCountByName(breedname);
+    	if( breedViewCount == null ) {
+    		breedViewCount = new BreedViewCount(null, breedname, 0);
+    	}
+    	
+    	breedViewCount.setViewCount( breedViewCount.getViewCount() + 1 );
+    	this.breedService.saveBreedViewCount(breedViewCount);
+	}
 }
